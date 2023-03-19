@@ -49,13 +49,15 @@ import { TopNavComponent } from './layout/top-nav/top-nav.component';
 import { CustomersComponent } from './customers/customers.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ViewCustomerComponent } from './customers/view-customer/view-customer.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TopNavComponent,
-    CustomersComponent
+    CustomersComponent,
+    ViewCustomerComponent
   ],
   imports: [
     FormsModule,

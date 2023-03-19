@@ -15,4 +15,8 @@ export class CustomerService {
   getCustomers(): Observable<Customer[]> {
     return this.httpClient.get<Customer[]>(this.baseApiUrl + '/customers');
   }
+
+  getCustomer(customerId: string): Observable<Customer> {
+    return this.httpClient.get<Customer>(this.baseApiUrl + '/customers/' + customerId);
+  }
 }
