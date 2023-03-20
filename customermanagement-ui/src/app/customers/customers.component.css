@@ -1,20 +1,22 @@
 table
 {
   width: 100%;
-
 }
 
-.search-input {
+.search-input
+{
   outline: none;
   border: 1px solid #CCC;
   padding: 8px 10px;
   border-radius: 3px;
 }
 
-.search-input:active{
+.search-input:active
+{
   border: 1px solid #BBB;
 }
 
-.search-input:focus{
+.search-input:focus
+{
   border: 1px solid #AAA;
 }

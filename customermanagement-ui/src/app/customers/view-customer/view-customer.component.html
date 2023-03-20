@@ -1,6 +1,6 @@
 <div class="page-header">
   <div class="container">
-    <h1>Edit Customer</h1>
+    <h1>{{header}}</h1>
   </div>
 </div>
 
@@ -8,11 +8,11 @@
   <div class="row top-row">
     <div class="col-xs-12 row end-xs">
       <a routerLink="/customers" color="primary" mat-raised-button>
-        <mat-icon>chevron_left</mat-icon>Go back
+        <mat-icon>chevron_left</mat-icon>
+        Go back
       </a>
     </div>
   </div>
-
 
   <div class="row">
     <div class="col-xs-6">
@@ -22,37 +22,33 @@
           <div class="col-xs-6">
             <mat-form-field appearance="outline">
               <mat-label> First Name</mat-label>
-              <input type="text" matInput [(ngModel)]="customer.firstName" name="firstName">
+              <input type="text" matInput [(ngModel)]="customer.firstName" name="firstName" required>
+              <mat-error>First Name is a required field</mat-error>
             </mat-form-field>
           </div>
           <div class="col-xs-6">
             <mat-form-field appearance="outline">
               <mat-label>Last Name</mat-label>
-              <input type="text" matInput [(ngModel)]="customer.lastName" name="lastName">
+              <input type="text" matInput [(ngModel)]="customer.lastName" name="lastName" required>
+              <mat-error>Last Name is a required field</mat-error>
             </mat-form-field>
           </div>
         </div>
         <div class="row">
           <div class="col-xs-12">
-          <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input type="text" matInput [(ngModel)]="customer.email" name="email">
-          </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input type="text" matInput [(ngModel)]="customer.email" name="email" required>
+              <mat-error>Email is a required field</mat-error>
+            </mat-form-field>
           </div>
         </div>
         <div class="row">
           <div class="col-xs-12">
             <mat-form-field appearance="outline">
               <mat-label>Address</mat-label>
-              <textarea matInput [(ngModel)]="customer.address" name="address"></textarea>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <mat-form-field appearance="outline">
-              <mat-label>Contact Mode</mat-label>
-              <input type="text" matInput [(ngModel)]="customer.contactMode.description" name="contactmode">
+              <textarea matInput [(ngModel)]="customer.homeAddress" name="homeAddress" required></textarea>
+              <mat-error>Address is a required field</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -61,6 +57,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Mobile</mat-label>
               <input type="number" matInput [(ngModel)]="customer.phoneNumber.mobile" name="mobile">
+              <mat-error>Mobile is a required field</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -78,8 +75,21 @@
             </mat-form-field>
           </div>
         </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="row between-xs" *ngIf="!isNewCustomer">
+              <button mat-raised-button color="primary" (click)="onUpdate()">Save</button>
+              <button mat-raised-button color="warn" (click)="onDelete()">Delete</button>
+            </div>
+            <div class="row between-xs" *ngIf="isNewCustomer">
+              <button mat-raised-button color="primary" (click)="onAdd()">Add</button>
+            </div>
+          </div>
+        </div>
       </form>
     </div>
-
+    <div class="col-xs-6">
+      <!--Empty Div-->
+    </div>
   </div>
 </div>

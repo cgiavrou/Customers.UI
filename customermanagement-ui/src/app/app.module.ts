@@ -47,9 +47,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { TopNavComponent } from './layout/top-nav/top-nav.component';
 import { CustomersComponent } from './customers/customers.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ViewCustomerComponent } from './customers/view-customer/view-customer.component';
+import { PopUpComponent } from './pop-up/pop-up.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { ViewCustomerComponent } from './customers/view-customer/view-customer.c
     AppComponent,
     TopNavComponent,
     CustomersComponent,
-    ViewCustomerComponent
+    ViewCustomerComponent,
+    PopUpComponent
   ],
   imports: [
     FormsModule,
