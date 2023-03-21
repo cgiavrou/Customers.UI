@@ -79,7 +79,7 @@
           <div class="col-xs-12">
             <div class="row between-xs" *ngIf="!isNewCustomer">
               <button mat-raised-button color="primary" (click)="onUpdate()">Save</button>
-              <button mat-raised-button color="warn" (click)="onDelete()">Delete</button>
+              <button mat-raised-button color="warn" (click)="openConfirmationDialog()">Delete</button>
             </div>
             <div class="row between-xs" *ngIf="isNewCustomer">
               <button mat-raised-button color="primary" (click)="onAdd()">Add</button>

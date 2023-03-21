@@ -48,9 +48,9 @@ import { MatTableModule } from '@angular/material/table';
 import { TopNavComponent } from './layout/top-nav/top-nav.component';
 import { CustomersComponent } from './customers/customers.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewCustomerComponent } from './customers/view-customer/view-customer.component';
-import { PopUpComponent } from './pop-up/pop-up.component';
+import { ConfirmationDialog } from './confirm-dialog/confirmation-dialog';
 
 
 @NgModule({
@@ -59,7 +59,7 @@ import { PopUpComponent } from './pop-up/pop-up.component';
     TopNavComponent,
     CustomersComponent,
     ViewCustomerComponent,
-    PopUpComponent
+    ConfirmationDialog
   ],
   imports: [
     FormsModule,
@@ -102,12 +102,15 @@ import { PopUpComponent } from './pop-up/pop-up.component';
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   schemas :[
     CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmationDialog]
 })
 export class AppModule { }

@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Customer } from 'src/app/models/ui-models/customer.model';
-import { PopUpComponent } from 'src/app/pop-up/pop-up.component';
 import { CustomerService } from '../customer.service';
+import { ConfirmationDialog } from 'src/app/confirm-dialog/confirmation-dialog';
+
 
 @Component({
   selector: 'app-view-customer',
@@ -29,19 +30,19 @@ export class ViewCustomerComponent implements OnInit {
     }
   };
 
-    isNewCustomer = false;
-    header = '';
+  isNewCustomer = false;
+  header = '';
 
-    @ViewChild('customerDetailsForm') customerDetailsForm?: NgForm;
+  @ViewChild('customerDetailsForm') customerDetailsForm?: NgForm;
+  dialogRef!: MatDialogRef<ConfirmationDialog>;
 
-    constructor(private readonly customerService: CustomerService,
+  constructor(private readonly customerService: CustomerService,
       private readonly route: ActivatedRoute,
       private snackbar: MatSnackBar,
       private router: Router,
-      private dialogref : MatDialog ) { }
+      private dialog: MatDialog ) { }
 
-      ngOnInit(): void {
-
+  ngOnInit(): void {
 
         this.route.paramMap.subscribe(
           (params) => {
@@ -68,9 +69,9 @@ export class ViewCustomerComponent implements OnInit {
             }
           }
         );
-      }
+  }
 
-      onUpdate(): void {
+  onUpdate(): void {
         if (this.customerDetailsForm?.form.valid) {
           this.customerService.updateCustomer(this.customer.id, this.customer)
             .subscribe(
@@ -86,11 +87,22 @@ export class ViewCustomerComponent implements OnInit {
               }
             );
         }
-      }
+  }
 
-      onDelete(): void {
+  openConfirmationDialog():void {
+    this.dialogRef = this.dialog.open(ConfirmationDialog, { disableClose: false});
+    this.dialogRef.componentInstance.confirmMessage= "Are you sure you want to delete?"
 
-        this.dialogref.open(PopUpComponent)
+    this.dialogRef.afterClosed().subscribe( result =>
+      {
+        if(result){
+          this.onDelete()
+        }
+        this.dialogRef.close;
+      });
+    }
+
+  onDelete(): void {
 
         this.customerService.deleteCustomer(this.customer.id)
           .subscribe(
@@ -107,9 +119,9 @@ export class ViewCustomerComponent implements OnInit {
               // Log
             }
           );
-      }
+  }
 
-      onAdd(): void {
+  onAdd(): void {
         if (this.customerDetailsForm?.form.valid) {
           // Submit form date to api
           this.customerService.addCustomer(this.customer)
@@ -130,7 +142,7 @@ export class ViewCustomerComponent implements OnInit {
               }
             );
         }
-      }
-
   }
+
+}
 
