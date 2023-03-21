@@ -83,8 +83,7 @@ export class ViewCustomerComponent implements OnInit {
   }
 
   onUpdate(): void {
-        if ( this.checkPhoneNumbers() == null)
-        {
+
 
         if (this.customerDetailsForm?.form.valid) {
           this.customerService.updateCustomer(this.customer.id, this.customer)
@@ -101,7 +100,7 @@ export class ViewCustomerComponent implements OnInit {
               }
             );
         }
-      }
+
   }
 
   openConfirmationDialog():void {
@@ -137,8 +136,7 @@ export class ViewCustomerComponent implements OnInit {
   }
 
   onAdd(): void {
-    if(this.checkPhoneNumbers() == null)
-    {
+
         if (this.customerDetailsForm?.form.valid) {
           // Submit form date to api
           this.customerService.addCustomer(this.customer)
@@ -159,7 +157,7 @@ export class ViewCustomerComponent implements OnInit {
               }
             );
         }
-      }
+
   }
 
   getEmailErrorMessage() {
