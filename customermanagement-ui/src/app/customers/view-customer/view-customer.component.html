@@ -22,15 +22,15 @@
           <div class="col-xs-6">
             <mat-form-field appearance="outline">
               <mat-label> First Name</mat-label>
-              <input type="text" matInput [(ngModel)]="customer.firstName" name="firstName" required>
-              <mat-error>First Name is a required field</mat-error>
+              <input required type="text" matInput [(ngModel)]="customer.firstName" [formControl]="firstName" id="firstName" name="firstName">
+              <mat-error *ngIf="firstName.invalid">{{getFirstNameErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
           <div class="col-xs-6">
             <mat-form-field appearance="outline">
               <mat-label>Last Name</mat-label>
-              <input type="text" matInput [(ngModel)]="customer.lastName" name="lastName" required>
-              <mat-error>Last Name is a required field</mat-error>
+              <input required type="text" matInput [(ngModel)]="customer.lastName" [formControl]="lastName" name="lastName">
+              <mat-error *ngIf="lastName.invalid">{{getLastNameErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -38,8 +38,8 @@
           <div class="col-xs-12">
             <mat-form-field appearance="outline">
               <mat-label>Email</mat-label>
-              <input type="text" matInput [(ngModel)]="customer.email" name="email" required>
-              <mat-error>Email is a required field</mat-error>
+              <input required type="text" matInput [(ngModel)]="customer.email" [formControl]="email" name="email">
+              <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -47,7 +47,7 @@
           <div class="col-xs-12">
             <mat-form-field appearance="outline">
               <mat-label>Address</mat-label>
-              <textarea matInput [(ngModel)]="customer.homeAddress" name="homeAddress" required></textarea>
+              <textarea required matInput [(ngModel)]="customer.homeAddress" name="homeAddress"></textarea>
               <mat-error>Address is a required field</mat-error>
             </mat-form-field>
           </div>
@@ -56,8 +56,8 @@
           <div class="col-xs-12">
             <mat-form-field appearance="outline">
               <mat-label>Mobile</mat-label>
-              <input type="number" matInput [(ngModel)]="customer.phoneNumber.mobile" name="mobile">
-              <mat-error>Mobile is a required field</mat-error>
+              <input type="number" minlength="10" matInput [(ngModel)]="customer.phoneNumber.mobile" name="mobile">
+              <mat-error>Mobile has invalid length</mat-error>
             </mat-form-field>
           </div>
         </div>

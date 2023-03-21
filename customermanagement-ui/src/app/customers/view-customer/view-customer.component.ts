@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, NgForm, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Customer } from 'src/app/models/ui-models/customer.model';
 import { CustomerService } from '../customer.service';
 import { ConfirmationDialog } from 'src/app/confirm-dialog/confirmation-dialog';
+import { PhoneValidator } from 'src/app/validation/phone.validation';
 
 
 @Component({
@@ -35,6 +36,16 @@ export class ViewCustomerComponent implements OnInit {
 
   @ViewChild('customerDetailsForm') customerDetailsForm?: NgForm;
   dialogRef!: MatDialogRef<ConfirmationDialog>;
+
+  firstName = new FormControl('',[Validators.required, Validators.pattern('[a-zA-Z ]*')]);
+  lastName = new FormControl('',[Validators.required, Validators.pattern('[a-zA-Z ]*')]);
+  email = new FormControl('',[Validators.required, Validators.email]);
+
+  form = new FormGroup({
+    mobile: new FormControl('',Validators.minLength(10)),
+    homePhone: new FormControl('',Validators.minLength(10)),
+    workPhone: new FormControl('',Validators.minLength(10)),
+  });
 
   constructor(private readonly customerService: CustomerService,
       private readonly route: ActivatedRoute,
@@ -72,6 +83,9 @@ export class ViewCustomerComponent implements OnInit {
   }
 
   onUpdate(): void {
+        if ( this.checkPhoneNumbers() == null)
+        {
+
         if (this.customerDetailsForm?.form.valid) {
           this.customerService.updateCustomer(this.customer.id, this.customer)
             .subscribe(
@@ -87,6 +101,7 @@ export class ViewCustomerComponent implements OnInit {
               }
             );
         }
+      }
   }
 
   openConfirmationDialog():void {
@@ -122,6 +137,8 @@ export class ViewCustomerComponent implements OnInit {
   }
 
   onAdd(): void {
+    if(this.checkPhoneNumbers() == null)
+    {
         if (this.customerDetailsForm?.form.valid) {
           // Submit form date to api
           this.customerService.addCustomer(this.customer)
@@ -142,7 +159,33 @@ export class ViewCustomerComponent implements OnInit {
               }
             );
         }
+      }
   }
+
+  getEmailErrorMessage() {
+    return this.email.hasError('required') ? 'You must enter a value' :
+        this.email.hasError('email') ? 'Not a valid email' :
+            '';
+  }
+
+  getFirstNameErrorMessage() {
+    return this.firstName.hasError('required') ? 'You must enter a value' :
+        this.firstName.hasError('pattern') ? 'Not a valid first name' :
+            '';
+  }
+
+  getLastNameErrorMessage() {
+    return this.lastName.hasError('required') ? 'You must enter a value' :
+        this.lastName.hasError('pattern') ? 'Not a valid last name' :
+            '';
+  }
+
+ checkPhoneNumbers(){
+  return (this.form.controls.mobile.pristine)
+          && (this.form.controls.homePhone.pristine)
+          && (this.form.controls.workPhone.pristine) ? 'at least one phone should be defined' : null;
+ }
+
 
 }
 
